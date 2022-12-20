@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6331a488ffe23ddd8ab5687b09af49bb>>
+ * @generated SignedSource<<712171ef30bb19581834a20d28aa9140>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -70,6 +70,13 @@ v4 = {
   "args": null,
   "kind": "ScalarField",
   "name": "cursor",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
@@ -184,6 +191,32 @@ return {
                         "kind": "ScalarField",
                         "name": "description",
                         "storageKey": null
+                      },
+                      (v5/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "viewerHasStarred",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "StargazerConnection",
+                        "kind": "LinkedField",
+                        "name": "stargazers",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "totalCount",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
                       }
                     ],
                     "type": "Repository",
@@ -192,13 +225,7 @@ return {
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "id",
-                        "storageKey": null
-                      }
+                      (v5/*: any*/)
                     ],
                     "type": "Node",
                     "abstractKey": "__isNode"
@@ -215,12 +242,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "67f80f8bbac0f7e20a5106aaedfba81a",
+    "cacheID": "d981b78029a3c502488028c6b48fe7e5",
     "id": null,
     "metadata": {},
     "name": "ListQuery",
     "operationKind": "query",
-    "text": "query ListQuery(\n  $query: String!\n  $first: Int!\n) {\n  search(query: $query, first: $first, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...CardFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment CardFragment on Repository {\n  name\n  description\n}\n"
+    "text": "query ListQuery(\n  $query: String!\n  $first: Int!\n) {\n  search(query: $query, first: $first, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...CardFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment CardFragment on Repository {\n  name\n  description\n  ...StarFragment\n}\n\nfragment StarFragment on Repository {\n  id\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n"
   }
 };
 })();

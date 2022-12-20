@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c682aa6e941c0a4b81f7fdf4fa8e89a9>>
+ * @generated SignedSource<<dc2f25744e554cb9f5c16e3c9102f8f1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type CardFragment$data = {
   readonly description: string | null;
   readonly name: string;
+  readonly " $fragmentSpreads": FragmentRefs<"StarFragment">;
   readonly " $fragmentType": "CardFragment";
 };
 export type CardFragment$key = {
@@ -39,12 +40,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "description",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "StarFragment"
     }
   ],
   "type": "Repository",
   "abstractKey": null
 };
 
-(node as any).hash = "d57e59b02d33b181110b5631863228b5";
+(node as any).hash = "8647debb70edb0ab4acb8cd3a2d8885e";
 
 export default node;
