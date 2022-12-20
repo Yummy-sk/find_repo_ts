@@ -1,18 +1,17 @@
-import { useState } from 'react';
-import { Input } from 'components';
+import { Suspense, useState } from 'react';
+import { Input, List } from 'components';
 
 function App() {
-  const [value, setValue] = useState<string>('');
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
-    const { value } = e.target;
-    
-    setValue(value);
-  }
+  const [value, setValue] = useState<string>('hello');
+  
+  const onChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>) => setValue(value)
   
   return (
-    <div className="w-full h-screen flex justify-center">
+    <div className="w-full h-screen flex flex-col items-center">
       <Input value={value} onChange={onChange} />
+      <Suspense fallback={<h2>loading repositories...</h2>}>
+        {value && <List value={value} />}
+      </Suspense>
     </div>
   );
 }
