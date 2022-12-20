@@ -1,4 +1,4 @@
-import { useFragment } from "react-relay/hooks";
+import { useFragment, useMutation } from "react-relay/hooks";
 import { graphql } from 'babel-plugin-relay/macro';
 import { StarFragment$key } from "components/__generated__/StarFragment.graphql";
 
@@ -12,6 +12,26 @@ const Fragment = graphql`
     viewerHasStarred
     stargazers {
       totalCount
+    }
+  }
+`
+
+const AddStarMutation = graphql`
+  mutation StarAddMutation($input: AddStarInput!) {
+    addStar(input: $input) {
+      starrable {
+        ...StarFragment
+      }
+    }
+  }
+`
+
+const RemoveStarMutation = graphql`
+  mutation StarRemoveMutation($input: RemoveStarInput!) {
+    removeStar(input: $input) {
+      starrable {
+        ...StarFragment
+      }
     }
   }
 `
@@ -30,12 +50,27 @@ function Icon({ viewerHasStarred }: { viewerHasStarred: boolean }) {
 }
 
 export function Star({ query }: Props) {
-  const {id, stargazers, viewerHasStarred} = useFragment<StarFragment$key>(Fragment, query);
+  const { id, stargazers, viewerHasStarred } = useFragment<StarFragment$key>(Fragment, query);
+  // star가 눌렸다면, removeStarMutation을 실행하고, 아니라면 addStarMutation을 실행한다.
+  const [commit, isInFlight] = useMutation(viewerHasStarred ? RemoveStarMutation : AddStarMutation);
 
-  console.log(id);
+  const onClick = () => { 
+    commit({
+      variables: {
+        input: {
+          starrableId: id
+        }
+      }
+    })
+  }
 
   return (
-    <button type="button" className="h-fit flex justify-center items-center mt-4">
+    <button
+      type="button"
+      className="h-fit flex justify-center items-center mt-4"
+      disabled={isInFlight}
+      onClick={onClick}
+    >
       <Icon viewerHasStarred={viewerHasStarred} />
       <p className="ml-2 text-sm font-bold text-gray-900 ">{ stargazers.totalCount }</p>
     </button>
