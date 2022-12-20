@@ -1,7 +1,7 @@
 import { useFragment } from "react-relay/hooks";
 import { graphql } from 'babel-plugin-relay/macro';
-import { CardFragment$key } from "./__generated__/CardFragment.graphql";
-import { Star } from "./Star";
+import { CardFragment$key } from "components/__generated__/CardFragment.graphql";
+import { Star } from "components/Star";
 
 interface Props {
 	query: CardFragment$key

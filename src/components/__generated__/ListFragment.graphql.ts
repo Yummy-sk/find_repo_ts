@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c7439617a6d396287e3946d2c2d69ce1>>
+ * @generated SignedSource<<3bed1b78f533e4c4e92edef10b8b58d3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ListFragment$data = {
   readonly search: {
     readonly edges: ReadonlyArray<{
+      readonly cursor: string;
       readonly node: {
         readonly " $fragmentSpreads": FragmentRefs<"CardFragment">;
       } | null;
@@ -26,12 +27,21 @@ export type ListFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ListFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  "search"
+];
+return {
   "argumentDefinitions": [
+    {
+      "defaultValue": 5,
+      "kind": "LocalArgument",
+      "name": "count"
+    },
     {
       "defaultValue": null,
       "kind": "LocalArgument",
-      "name": "count"
+      "name": "cursor"
     },
     {
       "defaultValue": null,
@@ -41,22 +51,32 @@ const node: ReaderFragment = {
   ],
   "kind": "Fragment",
   "metadata": {
+    "connection": [
+      {
+        "count": "count",
+        "cursor": "cursor",
+        "direction": "forward",
+        "path": (v0/*: any*/)
+      }
+    ],
     "refetch": {
-      "connection": null,
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
       "fragmentPathInResult": [],
-      "operation": require('./ListRefetchQuery.graphql')
+      "operation": require('./ListQuery.graphql')
     }
   },
   "name": "ListFragment",
   "selections": [
     {
-      "alias": null,
+      "alias": "search",
       "args": [
-        {
-          "kind": "Variable",
-          "name": "first",
-          "variableName": "count"
-        },
         {
           "kind": "Variable",
           "name": "query",
@@ -70,7 +90,7 @@ const node: ReaderFragment = {
       ],
       "concreteType": "SearchResultItemConnection",
       "kind": "LinkedField",
-      "name": "search",
+      "name": "__ListFragment_search_connection",
       "plural": false,
       "selections": [
         {
@@ -91,6 +111,13 @@ const node: ReaderFragment = {
             {
               "alias": null,
               "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
               "concreteType": null,
               "kind": "LinkedField",
               "name": "node",
@@ -100,8 +127,40 @@ const node: ReaderFragment = {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "CardFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
                 }
               ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             }
           ],
@@ -114,7 +173,8 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "3f43edda0d0c52b0b9710da26998a660";
+(node as any).hash = "d292ed732585e206a69ecbb6b6d92805";
 
 export default node;

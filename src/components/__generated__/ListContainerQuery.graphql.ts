@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da642bd22b63ef2417ed7890d8d95814>>
+ * @generated SignedSource<<7982d949e54391c9537d6f18a5488aeb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,61 +10,48 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ListQuery$variables = {
-  count?: number | null;
-  cursor?: string | null;
+export type ListContainerQuery$variables = {
+  first: number;
   query: string;
 };
-export type ListQuery$data = {
+export type ListContainerQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ListFragment">;
 };
-export type ListQuery = {
-  response: ListQuery$data;
-  variables: ListQuery$variables;
+export type ListContainerQuery = {
+  response: ListContainerQuery$data;
+  variables: ListContainerQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": 5,
-    "kind": "LocalArgument",
-    "name": "count"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "cursor"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "query"
-  }
-],
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "first"
+},
 v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "query"
+},
+v2 = {
   "kind": "Variable",
   "name": "query",
   "variableName": "query"
 },
-v2 = [
-  {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "cursor"
-  },
+v3 = [
   {
     "kind": "Variable",
     "name": "first",
-    "variableName": "count"
+    "variableName": "first"
   },
-  (v1/*: any*/),
+  (v2/*: any*/),
   {
     "kind": "Literal",
     "name": "type",
     "value": "REPOSITORY"
   }
 ],
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -73,24 +60,22 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ListQuery",
+    "name": "ListContainerQuery",
     "selections": [
       {
         "args": [
           {
             "kind": "Variable",
             "name": "count",
-            "variableName": "count"
+            "variableName": "first"
           },
-          {
-            "kind": "Variable",
-            "name": "cursor",
-            "variableName": "cursor"
-          },
-          (v1/*: any*/)
+          (v2/*: any*/)
         ],
         "kind": "FragmentSpread",
         "name": "ListFragment"
@@ -101,13 +86,16 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
-    "name": "ListQuery",
+    "name": "ListContainerQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "SearchResultItemConnection",
         "kind": "LinkedField",
         "name": "search",
@@ -167,7 +155,7 @@ return {
                         "name": "description",
                         "storageKey": null
                       },
-                      (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -200,7 +188,7 @@ return {
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v3/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "type": "Node",
                     "abstractKey": "__isNode"
@@ -241,7 +229,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "filters": [
           "query",
           "type"
@@ -254,16 +242,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "552d2ec97715059a6852aaf775b93417",
+    "cacheID": "bb7b23a3033ac1bf0580c94343cf6d9c",
     "id": null,
     "metadata": {},
-    "name": "ListQuery",
+    "name": "ListContainerQuery",
     "operationKind": "query",
-    "text": "query ListQuery(\n  $count: Int = 5\n  $cursor: String\n  $query: String!\n) {\n  ...ListFragment_1jWD3d\n}\n\nfragment CardFragment on Repository {\n  name\n  description\n  ...StarFragment\n}\n\nfragment ListFragment_1jWD3d on Query {\n  search(query: $query, first: $count, after: $cursor, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...CardFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment StarFragment on Repository {\n  id\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n"
+    "text": "query ListContainerQuery(\n  $query: String!\n  $first: Int!\n) {\n  ...ListFragment_3r5gWI\n}\n\nfragment CardFragment on Repository {\n  name\n  description\n  ...StarFragment\n}\n\nfragment ListFragment_3r5gWI on Query {\n  search(query: $query, first: $first, type: REPOSITORY) {\n    repositoryCount\n    edges {\n      cursor\n      node {\n        __typename\n        ...CardFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment StarFragment on Repository {\n  id\n  viewerHasStarred\n  stargazers {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d292ed732585e206a69ecbb6b6d92805";
+(node as any).hash = "6344c9daeb732d79152bb0a8f19a422a";
 
 export default node;
