@@ -57,10 +57,6 @@ export function List({ query }: Props) {
     return item?.node !== null; 
   }) ?? [];
 
-  if (isLoadingNext) { 
-    return <div>Loading...</div>
-  }
-
   const onClick = () => {
     if (hasNext) {
       loadNext(5);
@@ -78,6 +74,7 @@ export function List({ query }: Props) {
           ))
         }
       </ul>
+      {isLoadingNext && <div>Loading...</div>}
       <Button hasNext={hasNext} onClick={onClick} />
     </>
   )

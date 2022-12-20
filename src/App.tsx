@@ -7,7 +7,7 @@ function App() {
   const onChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>) => setValue(value)
   
   return (
-    <div className="w-full h-screen flex flex-col items-center">
+    <div className="b-8 w-full h-screen flex flex-col items-center">
       <Input value={value} onChange={onChange} />
       <Suspense fallback={<h2>loading repositories...</h2>}>
         {value && <ListContainer value={value} />}
